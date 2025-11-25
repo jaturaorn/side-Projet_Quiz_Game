@@ -73,8 +73,6 @@ export default function Home() {
 
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
-  const [answerStatus, setAnswerStatus] = useState<string | null>(null);
-
   const currQuestion = quizData[currQuestionIndex];
 
   const handleAnswerClick = (option: string) => {
@@ -84,11 +82,7 @@ export default function Home() {
 
     if (option === currQuestion.correctAnswer) {
       setScore((prevScore) => prevScore + 1);
-      setAnswerStatus("correct");
-    } else {
-      setAnswerStatus("incorrect");
     }
-
     // หน่วงเวลา 1.5 วินาทีเพื่อให้ผู้ใช้เห็น Feedback ก่อนไปข้อถัดไป
     setTimeout(() => {
       setSelectedAnswer(null);
@@ -167,8 +161,13 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
-        <div className="text-right text-sm text-gray-500 mb-4">
-          คำถามที่ {currQuestionIndex + 1} จาก {quizData.length}
+        <div className="flex w-full gap-2 items-center justify-between mb-2">
+          <p className="text-lg bg-yellow-100 rounded-full px-4 py-1 border border-yellow-100 font-bold">
+            Score: {score}/ {quizData.length}
+          </p>
+          <div className="text-right text-sm text-gray-500 ">
+            คำถามที่ {currQuestionIndex + 1} จาก {quizData.length}
+          </div>
         </div>
 
         {/* กล่องคำถาม */}
